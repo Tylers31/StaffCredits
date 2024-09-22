@@ -1,13 +1,15 @@
 package me.kasuki.staffcredits.menu;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XSound;
 import com.google.common.collect.Lists;
-import com.samjakob.spigui.SpiGUI;
 import com.samjakob.spigui.buttons.SGButton;
 import com.samjakob.spigui.item.ItemBuilder;
 import com.samjakob.spigui.menu.SGMenu;
 import me.kasuki.staffcredits.StaffCredits;
 import me.kasuki.staffcredits.api.profile.Profile;
+import me.kasuki.staffcredits.utilities.CC;
+import me.kasuki.staffcredits.utilities.num.NumFormatter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -46,11 +48,21 @@ public class CreditsMenu {
             .flag(ItemFlag.HIDE_ENCHANTS)
             .build())
             .withListener((InventoryClickEvent event) -> {
-                // TODO: Implement withdrawal logic
+                Player player = (Player) event.getWhoClicked();
+                Profile profile = instance.getStaffCreditsAPI().getProfileHandler().getProfile(player.getUniqueId());
+
+                if(profile == null){
+                    event.getWhoClicked().sendMessage(CC.chat("&c&l(!) &cNo profile found, try again later."));
+                    return;
+                }
+
+                CreditsWithdrawalMenu withdrawalMenu = new CreditsWithdrawalMenu(instance);
+                withdrawalMenu.openWithdrawalMenu(player, profile, 0);
+                player.playSound(player.getLocation(), XSound.ENTITY_EXPERIENCE_ORB_PICKUP.parseSound(), 1, 1);
             });
 
     SGButton helpButton = new SGButton(new ItemBuilder(XMaterial.WRITABLE_BOOK.parseItem())
-            .name("&a&lStaff Credits")
+            .name("&6&lStaff Credits")
             .lore(Lists.newArrayList(
                     "&7Staff credits are an ingame currency",
                     "&7for staff to use in order to be compensated",
@@ -72,8 +84,8 @@ public class CreditsMenu {
                         .name("&2&l" + player.getName() + "'s Staff Credits")
                         .lore(Lists.newArrayList(
                                 "",
-                                "&2&l* &aCurrent Credits: &f" + profile.getCredits(),
-                                "&2&l* &aLifetime Credits: &f" + profile.getLifetimeCredits(),
+                                "&2&l* &aCurrent Credits: &f" + NumFormatter.formatToUSD(profile.getCredits()),
+                                "&2&l* &aLifetime Credits: &f" + NumFormatter.formatToUSD(profile.getLifetimeCredits()),
                                 "",
                                 "&7Click to view the leaderboard"
                         ))

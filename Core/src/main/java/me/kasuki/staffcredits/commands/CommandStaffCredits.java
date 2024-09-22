@@ -14,7 +14,7 @@ public class CommandStaffCredits {
         this.instance = instance;
     }
 
-    @Command(label = "staffcredits", permission = "staffcredits.credits")
+    @Command(label = "staffcredits", aliases = {"credits", "scredits"}, permission = "staffcredits.credits")
     public void executeStaffCredits(Player sender){
         Profile profile = instance.getStaffCreditsAPI().getProfileHandler().getProfile(sender.getUniqueId());
 

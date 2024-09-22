@@ -21,7 +21,7 @@ public class MainConfig extends Config {
     @ConfigAnnotation(path = "mongo.password")
     public static String MONGO_PASSWORD = "";
     @ConfigAnnotation(path = "mongo.database")
-    public static String MONGO_DATABASE = "akuma";
+    public static String MONGO_DATABASE = "staffcredits";
     @ConfigAnnotation(path = "mongo.uri_mode")
     public static boolean MONGO_URI_MODE = false;
     @ConfigAnnotation(path = "mongo.uri")

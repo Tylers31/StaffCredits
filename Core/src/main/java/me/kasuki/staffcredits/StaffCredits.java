@@ -6,11 +6,17 @@ import lombok.Getter;
 import me.kasuki.staffcredits.api.StaffCreditsAPI;
 import me.kasuki.staffcredits.api.database.mongodb.MongoHandler;
 import me.kasuki.staffcredits.commands.CommandStaffCredits;
+import me.kasuki.staffcredits.commands.CommandStaffCreditsAdmin;
 import me.kasuki.staffcredits.config.MainConfig;
-import me.kasuki.staffcredits.config.listener.ProfileListener;
+import me.kasuki.staffcredits.listener.ChatListener;
+import me.kasuki.staffcredits.profile.listener.ProfileListener;
 import me.kasuki.staffcredits.profile.ProfileHandler;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class StaffCredits extends JavaPlugin {
@@ -22,6 +28,11 @@ public class StaffCredits extends JavaPlugin {
     private MongoHandler mongoHandler;
 
     private MainConfig mainConfig;
+
+
+    public List<UUID> pendingRequests = new ArrayList<>();
+
+
     @Override
     public void onEnable() {
         instance = this;
@@ -48,11 +59,13 @@ public class StaffCredits extends JavaPlugin {
     public void registerCommands(){
         CommandHandler handler = new CommandHandler(this, "staffcredits");
         handler.registerCommand(new CommandStaffCredits(this));
+        handler.registerCommand(new CommandStaffCreditsAdmin(this));
     }
 
     public void registerListeners(){
         PluginManager manager = this.getServer().getPluginManager();
         manager.registerEvents(new ProfileListener(this), this);
+        manager.registerEvents(new ChatListener(this), this);
     }
 
     public void registerConfig(){
