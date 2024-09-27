@@ -6,7 +6,7 @@ import lombok.Getter;
 import me.kasuki.staffcredits.api.StaffCreditsAPI;
 import me.kasuki.staffcredits.api.database.mongodb.MongoHandler;
 import me.kasuki.staffcredits.commands.CommandStaffCredits;
-import me.kasuki.staffcredits.commands.CommandStaffCreditsAdmin;
+import me.kasuki.staffcredits.commands.CommandAdminStaffCredits;
 import me.kasuki.staffcredits.config.MainConfig;
 import me.kasuki.staffcredits.listener.ChatListener;
 import me.kasuki.staffcredits.profile.listener.ProfileListener;
@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class StaffCredits extends JavaPlugin {
-    public StaffCredits instance;
+public class StaffCreditsPlugin extends JavaPlugin {
+    public StaffCreditsPlugin instance;
     private SpiGUI spiGUI;
 
     private StaffCreditsAPI staffCreditsAPI;
@@ -52,14 +52,16 @@ public class StaffCredits extends JavaPlugin {
         this.staffCreditsAPI.setProfileHandler(new ProfileHandler(this));
     }
 
+    @Override
     public void onDisable() {
-
+        StaffCreditsAPI api = this.staffCreditsAPI;
+        api.getProfileHandler().unload();
     }
 
     public void registerCommands(){
         CommandHandler handler = new CommandHandler(this, "staffcredits");
         handler.registerCommand(new CommandStaffCredits(this));
-        handler.registerCommand(new CommandStaffCreditsAdmin(this));
+        handler.registerCommand(new CommandAdminStaffCredits(this));
     }
 
     public void registerListeners(){

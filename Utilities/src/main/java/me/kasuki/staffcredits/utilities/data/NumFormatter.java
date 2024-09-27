@@ -1,4 +1,4 @@
-package me.kasuki.staffcredits.utilities.num;
+package me.kasuki.staffcredits.utilities.data;
 
 import lombok.experimental.UtilityClass;
 

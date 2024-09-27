@@ -2,7 +2,6 @@ package me.kasuki.staffcredits.config;
 
 import cc.insidious.config.Config;
 import cc.insidious.config.annotation.ConfigAnnotation;
-import me.kasuki.staffcredits.StaffCredits;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MainConfig extends Config {

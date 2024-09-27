@@ -1,10 +1,5 @@
 package me.kasuki.staffcredits.api.database.mongodb.repository;
 
-import me.kasuki.staffcredits.utilities.cuboid.Cuboid;
-import me.kasuki.staffcredits.utilities.serialization.CuboidSerializer;
-import me.kasuki.staffcredits.utilities.serialization.ItemStackSerializer;
-import me.kasuki.staffcredits.utilities.serialization.LocationSerializer;
-import me.kasuki.staffcredits.utilities.serialization.PotionEffectSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
@@ -12,17 +7,15 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import lombok.Getter;
 import org.bson.Document;
-import org.bukkit.Location;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Getter
-public abstract class AbstractMongoListRepository<K, V> {
+public abstract class MongoListRepository<K, V> {
 
     private final Type type;
 
@@ -32,16 +25,12 @@ public abstract class AbstractMongoListRepository<K, V> {
 
     private final MongoCollection<Document> collection;
 
-    public AbstractMongoListRepository(Type type, MongoCollection<Document> collection) {
+    public MongoListRepository(Type type, MongoCollection<Document> collection) {
         this.type = type;
-        this.cache = new ArrayList<>();
+        this.cache = new CopyOnWriteArrayList<>();
         this.gson = new GsonBuilder()
                 .serializeNulls()
                 .setLongSerializationPolicy(LongSerializationPolicy.STRING)
-                .registerTypeHierarchyAdapter(PotionEffectType.class, new PotionEffectSerializer())
-                .registerTypeHierarchyAdapter(Location.class, new LocationSerializer())
-                .registerTypeHierarchyAdapter(ItemStack.class, new ItemStackSerializer())
-                .registerTypeAdapter(Cuboid.class, new CuboidSerializer())
                 .disableHtmlEscaping()
                 .setPrettyPrinting()
                 .create();
@@ -101,8 +90,5 @@ public abstract class AbstractMongoListRepository<K, V> {
     public abstract void saveToDatabase(V value);
 
     public abstract void removeFromDatabase(V value);
-
-    public abstract void saveAllToDatabase(List<V> values);
-    public abstract void removeAllFromDatabase(List<K> values);
 
 }

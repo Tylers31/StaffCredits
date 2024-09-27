@@ -1,6 +1,7 @@
 package me.kasuki.staffcredits.api.profile;
 
 import me.kasuki.staffcredits.api.profile.repository.ProfileRepository;
+import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -19,5 +20,4 @@ public interface IProfileHandler {
     void saveToDatabase(Profile profile);
 
     void unload();
-
 }

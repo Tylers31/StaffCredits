@@ -6,19 +6,19 @@ import com.google.common.collect.Lists;
 import com.samjakob.spigui.buttons.SGButton;
 import com.samjakob.spigui.item.ItemBuilder;
 import com.samjakob.spigui.menu.SGMenu;
-import me.kasuki.staffcredits.StaffCredits;
+import me.kasuki.staffcredits.StaffCreditsPlugin;
 import me.kasuki.staffcredits.api.profile.Profile;
 import me.kasuki.staffcredits.utilities.CC;
-import me.kasuki.staffcredits.utilities.num.NumFormatter;
+import me.kasuki.staffcredits.utilities.data.NumFormatter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 
 public class CreditsMenu {
-    public StaffCredits instance;
+    public StaffCreditsPlugin instance;
 
-    public CreditsMenu(StaffCredits instance) {
+    public CreditsMenu(StaffCreditsPlugin instance) {
         this.instance = instance;
     }
 

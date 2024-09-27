@@ -6,26 +6,24 @@ import com.google.common.collect.Lists;
 import com.samjakob.spigui.buttons.SGButton;
 import com.samjakob.spigui.item.ItemBuilder;
 import com.samjakob.spigui.menu.SGMenu;
-import me.kasuki.staffcredits.StaffCredits;
+import me.kasuki.staffcredits.StaffCreditsPlugin;
 import me.kasuki.staffcredits.api.profile.Profile;
+import me.kasuki.staffcredits.api.profile.withdrawals.WithdrawRequest;
 import me.kasuki.staffcredits.utilities.CC;
-import me.kasuki.staffcredits.utilities.num.NumFormatter;
-import org.bukkit.Sound;
+import me.kasuki.staffcredits.utilities.data.NumFormatter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 
 public class CreditsWithdrawalMenu {
-    public StaffCredits instance;
+    public StaffCreditsPlugin instance;
 
-    public CreditsWithdrawalMenu(StaffCredits instance) {
+    public CreditsWithdrawalMenu(StaffCreditsPlugin instance) {
         this.instance = instance;
     }
 
-    // Idea is to have a button that when clicked closes the ui, asks in chat for the amount, when the amount is wsent in chat, it opens the ui back up and puts it as the amount
-    // Other button can be set it to 0 or something idk
-    // Middle button displays the amount selected and the amount the player has (balance) and then a lore saying left/right click to confirm or cancel
+    // Last button will be withdrawal history
 
     public void openWithdrawalMenu(Player player, Profile profile, double withdrawalAmount){
         SGMenu creditsWithdrawalMenu = instance.getSpiGUI().create("Credits Withdrawal", 1);
@@ -86,6 +84,8 @@ public class CreditsWithdrawalMenu {
                     player.sendMessage(CC.chat("&a&L(!) &aSubmitted a request for credit withdrawal!"));
                     player.sendMessage(CC.chat("&7&oPlease wait for management to approve your request!"));
                     player.playSound(player.getLocation(), XSound.BLOCK_ANVIL_USE.parseSound(), 1, 1);
+                    profile.setCredits(profile.getCredits() - withdrawalAmount);
+                    profile.getWithdrawRequests().add(new WithdrawRequest(withdrawalAmount, System.currentTimeMillis()));
                     player.closeInventory();
                 });
 

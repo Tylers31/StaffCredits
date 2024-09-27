@@ -1,21 +1,20 @@
 package me.kasuki.staffcredits.listener;
 
 import com.cryptomorin.xseries.XSound;
-import me.kasuki.staffcredits.StaffCredits;
+import me.kasuki.staffcredits.StaffCreditsPlugin;
 import me.kasuki.staffcredits.api.profile.Profile;
 import me.kasuki.staffcredits.menu.CreditsWithdrawalMenu;
 import me.kasuki.staffcredits.utilities.CC;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatListener implements Listener {
-    public StaffCredits instance;
+    public StaffCreditsPlugin instance;
 
-    public ChatListener(StaffCredits instance) {
+    public ChatListener(StaffCreditsPlugin instance) {
         this.instance = instance;
     }
 

@@ -5,6 +5,8 @@ import lombok.experimental.UtilityClass;
 import org.apache.commons.lang.time.FastDateFormat;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -37,4 +39,10 @@ public class DateTimeFormats {
 
     public final ThreadLocal<DecimalFormat> REMAINING_SECONDS_TRAILING = ThreadLocal.withInitial(() -> new DecimalFormat("0.0"));
 
+    public String convertMillisToDate(long millis) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd");
+        Date date = new Date(millis);
+
+        return dateFormat.format(date);
+    }
 }
