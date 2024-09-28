@@ -11,11 +11,13 @@ import me.kasuki.staffcredits.config.MainConfig;
 import me.kasuki.staffcredits.listener.ChatListener;
 import me.kasuki.staffcredits.profile.listener.ProfileListener;
 import me.kasuki.staffcredits.profile.ProfileHandler;
+import me.kasuki.staffcredits.utilities.date.DateTimeFormats;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 
 @Getter
@@ -37,6 +39,8 @@ public class StaffCreditsPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        DateTimeFormats.setup(TimeZone.getDefault());
+
         this.registerConfig();
 
         this.mongoHandler = new MongoHandler(MainConfig.MONGO_HOST, MainConfig.MONGO_PORT,
@@ -54,8 +58,7 @@ public class StaffCreditsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        StaffCreditsAPI api = this.staffCreditsAPI;
-        api.getProfileHandler().unload();
+        this.staffCreditsAPI.getProfileHandler().unload();
     }
 
     public void registerCommands(){

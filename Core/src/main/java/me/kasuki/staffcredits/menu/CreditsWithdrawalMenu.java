@@ -11,6 +11,7 @@ import me.kasuki.staffcredits.api.profile.Profile;
 import me.kasuki.staffcredits.api.profile.withdrawals.WithdrawRequest;
 import me.kasuki.staffcredits.utilities.CC;
 import me.kasuki.staffcredits.utilities.data.NumFormatter;
+import me.kasuki.staffcredits.utilities.enums.WithdrawalStates;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -85,7 +86,7 @@ public class CreditsWithdrawalMenu {
                     player.sendMessage(CC.chat("&7&oPlease wait for management to approve your request!"));
                     player.playSound(player.getLocation(), XSound.BLOCK_ANVIL_USE.parseSound(), 1, 1);
                     profile.setCredits(profile.getCredits() - withdrawalAmount);
-                    profile.getWithdrawRequests().add(new WithdrawRequest(withdrawalAmount, System.currentTimeMillis()));
+                    profile.getWithdrawRequests().add(new WithdrawRequest(WithdrawalStates.PENDING, withdrawalAmount, System.currentTimeMillis()));
                     player.closeInventory();
                 });
 

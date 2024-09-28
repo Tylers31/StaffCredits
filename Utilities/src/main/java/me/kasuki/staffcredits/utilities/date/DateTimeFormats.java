@@ -2,7 +2,7 @@ package me.kasuki.staffcredits.utilities.date;
 
 import com.google.common.base.Preconditions;
 import lombok.experimental.UtilityClass;
-import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

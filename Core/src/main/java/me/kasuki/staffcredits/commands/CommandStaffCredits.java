@@ -5,6 +5,7 @@ import cc.insidious.fethmusmioma.annotation.SubCommand;
 import me.kasuki.staffcredits.StaffCreditsPlugin;
 import me.kasuki.staffcredits.api.profile.Profile;
 import me.kasuki.staffcredits.api.profile.withdrawals.WithdrawRequest;
+import me.kasuki.staffcredits.menu.CreditsHistoryMenu;
 import me.kasuki.staffcredits.menu.CreditsMenu;
 import me.kasuki.staffcredits.utilities.CC;
 import me.kasuki.staffcredits.utilities.data.NumFormatter;
@@ -40,12 +41,7 @@ public class CommandStaffCredits {
             return;
         }
 
-        for(WithdrawRequest request : profile.getWithdrawRequests()){
-            sender.sendMessage(CC.chat("&8&m-------------------------------------"));
-            sender.sendMessage(CC.chat("&2&l* &a&lAmount:&f " + NumFormatter.formatToUSD(request.getAmount())));
-            sender.sendMessage(CC.chat("&2&l* &a&lDate:&f " + DateTimeFormats.convertMillisToDate(request.getDate())));
-        }
-
-        sender.sendMessage(CC.chat("&8&m-------------------------------------"));
+        CreditsHistoryMenu creditsHistoryMenu = new CreditsHistoryMenu(instance);
+        creditsHistoryMenu.openCreditsHistoryMenu(sender, profile);
     }
 }
