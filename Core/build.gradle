@@ -68,6 +68,7 @@ shadowJar {
     relocate('com.zaxxer', 'me.kasuki.staffcredits.internal.com.zaxxer')
     relocate('org.bson', 'me.kasuki.staffcredits.internal.org.bson')
     relocate('com.mongodb', 'me.kasuki.staffcredits.internal.com.mongodb')
+    relocate('redis.clients', 'me.kasuki.staffcredits.internal.redis.clients')
 }
 
 
@@ -87,6 +88,7 @@ dependencies {
     implementation('de.tr7zw:item-nbt-api:2.11.3')
     implementation('com.zaxxer:HikariCP:4.0.3')
     implementation('org.apache.commons:commons-lang3:3.17.0')
+    implementation('redis.clients:jedis:3.8.0')
     implementation project(':API')
     implementation project(':Utilities')
 }

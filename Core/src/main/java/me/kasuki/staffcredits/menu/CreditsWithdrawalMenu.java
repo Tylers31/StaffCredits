@@ -9,6 +9,7 @@ import com.samjakob.spigui.menu.SGMenu;
 import me.kasuki.staffcredits.StaffCreditsPlugin;
 import me.kasuki.staffcredits.api.profile.Profile;
 import me.kasuki.staffcredits.api.profile.withdrawals.WithdrawRequest;
+import me.kasuki.staffcredits.redis.packet.impl.NotificationPacket;
 import me.kasuki.staffcredits.utilities.CC;
 import me.kasuki.staffcredits.utilities.data.NumFormatter;
 import me.kasuki.staffcredits.utilities.enums.WithdrawalStates;
@@ -86,7 +87,10 @@ public class CreditsWithdrawalMenu {
                     player.sendMessage(CC.chat("&7&oPlease wait for management to approve your request!"));
                     player.playSound(player.getLocation(), XSound.BLOCK_ANVIL_USE.parseSound(), 1, 1);
                     profile.setCredits(profile.getCredits() - withdrawalAmount);
-                    profile.getWithdrawRequests().add(new WithdrawRequest(WithdrawalStates.PENDING, withdrawalAmount, System.currentTimeMillis()));
+                    profile.getWithdrawRequests().add(new WithdrawRequest(player.getUniqueId(), WithdrawalStates.PENDING, withdrawalAmount, System.currentTimeMillis()));
+
+                    instance.getRedisHandler().publish(new NotificationPacket("&4&l[MANAGEMENT]&a " + player.getName() + " has submitted a credit withdrawal request!"));
+
                     player.closeInventory();
                 });
 

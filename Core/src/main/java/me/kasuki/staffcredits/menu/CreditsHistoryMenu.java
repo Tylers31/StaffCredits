@@ -52,7 +52,7 @@ public class CreditsHistoryMenu {
                                     "&a&lAmount: &f" + NumFormatter.formatToUSD(withdrawRequest.getAmount()),
                                     "&a&lDate: &f" + DateTimeFormats.DAY_MTH_HR_MIN_SECS.format(withdrawRequest.getDate()),
                                     "",
-                                    "&a&lState: " + WithdrawalStates.PENDING,
+                                    "&a&lState: " + withdrawRequest.getState().display,
                                     "&8&m-----------------------------"
                             ))
                             .build()

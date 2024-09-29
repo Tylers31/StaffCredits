@@ -1,6 +1,7 @@
 package me.kasuki.staffcredits.commands;
 
 import cc.insidious.fethmusmioma.annotation.Command;
+import cc.insidious.fethmusmioma.annotation.Optional;
 import cc.insidious.fethmusmioma.annotation.SubCommand;
 import me.kasuki.staffcredits.StaffCreditsPlugin;
 import me.kasuki.staffcredits.api.profile.Profile;
@@ -22,7 +23,6 @@ public class CommandStaffCredits {
     @Command(label = "staffcredits", aliases = {"credits", "scredits"}, permission = "staffcredits.credits")
     public void executeStaffCredits(Player sender){
         Profile profile = instance.getStaffCreditsAPI().getProfileHandler().getProfile(sender.getUniqueId());
-
         if(profile == null){
             sender.sendMessage(CC.chat("&c&l(!) &cUnable to load profile... try again?"));
             return;
@@ -33,8 +33,13 @@ public class CommandStaffCredits {
     }
 
     @SubCommand(label = "history", parent = "staffcredits", permission = "staffcredits.history")
-    public void executeStaffCreditsHistory(Player sender){
-        Profile profile = instance.getStaffCreditsAPI().getProfileHandler().getProfile(sender.getUniqueId());
+    public void executeStaffCreditsHistory(Player sender, @Optional(value = "self") Player target){
+        if(target == null){
+            sender.sendMessage(CC.chat("&c&l(!) &cInvalid target, try again?"));
+            return;
+        }
+
+        Profile profile = instance.getStaffCreditsAPI().getProfileHandler().getProfile(target.getUniqueId());
 
         if(profile == null){
             sender.sendMessage(CC.chat("&c&l(!) &cUnable to load profile... try again?"));

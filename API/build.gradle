@@ -71,4 +71,5 @@ dependencies {
     compileOnly('com.google.code.gson:gson:2.10.1')
     compileOnly project(':Utilities')
     compileOnly('com.zaxxer:HikariCP:4.0.3')
+    compileOnly('redis.clients:jedis:3.8.0')
 }

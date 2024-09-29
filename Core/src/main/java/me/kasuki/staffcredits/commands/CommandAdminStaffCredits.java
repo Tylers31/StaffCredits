@@ -4,6 +4,7 @@ import cc.insidious.fethmusmioma.annotation.Parameter;
 import cc.insidious.fethmusmioma.annotation.SubCommand;
 import me.kasuki.staffcredits.StaffCreditsPlugin;
 import me.kasuki.staffcredits.api.profile.Profile;
+import me.kasuki.staffcredits.menu.WithdrawalManagementMenu;
 import me.kasuki.staffcredits.utilities.CC;
 import me.kasuki.staffcredits.utilities.data.NumFormatter;
 import org.bukkit.entity.Player;
@@ -31,5 +32,11 @@ public class CommandAdminStaffCredits {
 
         profile.setCredits(amount);
         sender.sendMessage(CC.chat("&a&l(!) &aSet " + target.getName() + "'s credits to " + NumFormatter.formatToUSD(amount)));
+    }
+
+    @SubCommand(parent = "staffcredits", label = "manage", aliases = {"management"}, permission = "staffcredits.admin.manage")
+    public void executeStaffCreditsManage(Player sender){
+        WithdrawalManagementMenu withdrawalManagementMenu = new WithdrawalManagementMenu(instance);
+        withdrawalManagementMenu.openManagementMenu(sender);
     }
 }
