@@ -1,5 +1,6 @@
 package me.kasuki.staffcredits.menu;
 
+import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
 import com.google.common.collect.Lists;
@@ -25,8 +26,6 @@ public class CreditsWithdrawalMenu {
         this.instance = instance;
     }
 
-    // Last button will be withdrawal history
-
     public void openWithdrawalMenu(Player player, Profile profile, double withdrawalAmount){
         SGMenu creditsWithdrawalMenu = instance.getSpiGUI().create("Credits Withdrawal", 1);
 
@@ -36,6 +35,7 @@ public class CreditsWithdrawalMenu {
 
         creditsWithdrawalMenu.setButton(2, amountButton);
         creditsWithdrawalMenu.setButton(4, getConfirmButton(withdrawalAmount, profile));
+        creditsWithdrawalMenu.setButton(6, getRequestHistoryButton(profile));
 
         player.openInventory(creditsWithdrawalMenu.getInventory());
     }
@@ -65,7 +65,7 @@ public class CreditsWithdrawalMenu {
                         "",
                         "&7Click to submit your withdrawal request!"
                 ))
-                .enchant(Enchantment.LUCK, 1)
+                .enchant(XEnchantment.KNOCKBACK.getEnchant(), 1)
                 .flag(ItemFlag.HIDE_ENCHANTS)
                 .build())
                 .withListener((InventoryClickEvent event) -> {
@@ -95,5 +95,20 @@ public class CreditsWithdrawalMenu {
                 });
 
         return submitButton;
+    }
+
+    public SGButton getRequestHistoryButton(Profile profile){
+        return new SGButton(new ItemBuilder(XMaterial.PAPER.parseItem())
+                .name("&b&lWithdrawal History")
+                .lore(Lists.newArrayList(
+                        "&7Click to view your credit withdrawal history",
+                        "&7and to view the states of your withdrawal requests."
+                ))
+                .build()).withListener((InventoryClickEvent event) -> {
+                    Player player = (Player) event.getWhoClicked();
+                    CreditsHistoryMenu historyMenu = new CreditsHistoryMenu(instance);
+                    player.playSound(player.getLocation(), XSound.ENTITY_EXPERIENCE_ORB_PICKUP.parseSound(), 1, 1);
+                    historyMenu.openCreditsHistoryMenu(player, profile);
+        });
     }
 }

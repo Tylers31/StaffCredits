@@ -19,12 +19,14 @@ public class DateTimeFormats {
     public FastDateFormat DAY_MTH_HR_MIN_AMPM;
     public FastDateFormat HR_MIN_AMPM;
     public FastDateFormat HR_MIN_AMPM_TIMEZONE;
+    public FastDateFormat DAY_MONTH_YEAR_HR_MIN_SECS;
     public FastDateFormat HR_MIN;
     public FastDateFormat KOTH_FORMAT;
 
     public void setup(TimeZone timeZone) throws IllegalStateException {
         Preconditions.checkArgument(!loaded.getAndSet(true), "Already loaded");
 
+        DAY_MONTH_YEAR_HR_MIN_SECS = FastDateFormat.getInstance("dd/MM/yy HH:mm:ss", timeZone, Locale.ENGLISH);
         DAY_MTH_HR_MIN_SECS = FastDateFormat.getInstance("dd/MM HH:mm:ss", timeZone, Locale.ENGLISH);
         DAY_MTH_YR_HR_MIN_AMPM = FastDateFormat.getInstance("dd/MM/yy hh:mma", timeZone, Locale.ENGLISH);
         DAY_MTH_HR_MIN_AMPM = FastDateFormat.getInstance("dd/MM hh:mma", timeZone, Locale.ENGLISH);

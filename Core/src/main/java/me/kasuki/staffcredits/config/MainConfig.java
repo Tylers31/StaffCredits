@@ -48,4 +48,15 @@ public class MainConfig extends Config {
 
     @ConfigAnnotation(path = "discordbot.status")
     public static String DISCORD_STATUS = "Managing staff credits";
+
+    // General Settings
+
+    @ConfigAnnotation(path = "store.store_provider")
+    public static String STORE_PROVIDER = "TEBEX";
+
+    @ConfigAnnotation(path = "store.store_private_key")
+    public static String STORE_PRIVATE_KEY = "";
+
+    @ConfigAnnotation(path = "store.store_api_key")
+    public static String STORE_API_KEY = "";
 }

@@ -1,5 +1,6 @@
 package me.kasuki.staffcredits.menu;
 
+import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
 import com.google.common.collect.Lists;
@@ -44,7 +45,7 @@ public class CreditsMenu {
             .lore(Lists.newArrayList(
                     "&7Click to input a request to withdraw staff credits"
             ))
-            .enchant(Enchantment.LUCK, 1)
+            .enchant(XEnchantment.KNOCKBACK.getEnchant(), 1)
             .flag(ItemFlag.HIDE_ENCHANTS)
             .build())
             .withListener((InventoryClickEvent event) -> {
@@ -74,7 +75,7 @@ public class CreditsMenu {
                     "&7and then wait for management to respond",
                     "&7to your request!"
                     ))
-            .enchant(Enchantment.LUCK, 1)
+            .enchant(XEnchantment.KNOCKBACK.getEnchant(), 1)
             .flag(ItemFlag.HIDE_ENCHANTS)
             .build());
 
@@ -86,9 +87,14 @@ public class CreditsMenu {
                                 "",
                                 "&2&l* &aCurrent Credits: &f" + NumFormatter.formatToUSD(profile.getCredits()),
                                 "&2&l* &aLifetime Credits: &f" + NumFormatter.formatToUSD(profile.getLifetimeCredits()),
+                                "&2&l* &aGiftcards Rdeemed: &f" + profile.getWithdrawRequests().size(),
                                 "",
-                                "&7Click to view the leaderboard"
+                                "&7Click to view your giftcards!"
                         ))
-                        .build());
+                .build()).withListener((InventoryClickEvent event) -> {
+                    GiftcardMenu menu = new GiftcardMenu(instance);
+                    menu.openGiftcardMenu(player, profile);
+                    player.playSound(player.getLocation(), XSound.ENTITY_EXPERIENCE_ORB_PICKUP.parseSound(), 1, 1);
+        });
     }
 }

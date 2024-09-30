@@ -50,7 +50,7 @@ public class CreditsHistoryMenu {
                                     "&8&m-----------------------------",
                                     "&a&lRequester: &f" + Bukkit.getOfflinePlayer(profile.getUniqueId()).getName(),
                                     "&a&lAmount: &f" + NumFormatter.formatToUSD(withdrawRequest.getAmount()),
-                                    "&a&lDate: &f" + DateTimeFormats.DAY_MTH_HR_MIN_SECS.format(withdrawRequest.getDate()),
+                                    "&a&lDate: &f" + DateTimeFormats.DAY_MONTH_YEAR_HR_MIN_SECS.format(withdrawRequest.getDate()),
                                     "",
                                     "&a&lState: " + withdrawRequest.getState().display,
                                     "&8&m-----------------------------"

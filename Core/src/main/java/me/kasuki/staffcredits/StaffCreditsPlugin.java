@@ -51,7 +51,6 @@ public class StaffCreditsPlugin extends JavaPlugin {
                 MainConfig.REDIS_PORT, MainConfig.REDIS_PASSWORD, MainConfig.REDIS_CHANNEL);
 
         this.redisHandler.subscribe();
-
         this.registerCommands();
         this.registerListeners();
 
@@ -59,6 +58,7 @@ public class StaffCreditsPlugin extends JavaPlugin {
         this.spiGUI = new SpiGUI(this);
 
         this.staffCreditsAPI.setProfileHandler(new ProfileHandler(this));
+        this.staffCreditsAPI.setupTebexAPI(MainConfig.STORE_API_KEY, MainConfig.STORE_PRIVATE_KEY);
         DateTimeFormats.setup(TimeZone.getDefault());
     }
 
